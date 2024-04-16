@@ -12,16 +12,16 @@ exports.signup = (req, res, next) => {
         const user = new User({
             email: req.body.email,
             password: hash
-        });
+        });//password protect
         user.save().then(() => {
             res.status(201).json({
                 message: 'User added successfully!'
-            });
+            });//added user
         }
         ).catch((error) => {
             res.status(500).json({
                 error: error
-            });
+            });//code no work error
         })
     })
 };
@@ -35,14 +35,14 @@ exports.login = (req, res, next) => {
         (user) => {
             if (!user) {
                 return res.status(401).json({
-                    error: new Error('User not found!')
+                    error: new Error('User not found!')//find user
                 });
             }
             bcrypt.compare(req.body.password, user.password).then(
                 (valid) => {
                     if (!valid) {
                         return res.status(401).json({
-                            error: new Error('Incorrect password!')
+                            error: new Error('Incorrect password!')//authenticate password
                         });
                     }
                     const token = jwt.sign(
@@ -66,7 +66,7 @@ exports.login = (req, res, next) => {
         (error) => {
             res.status(500).json({
                 error: error
-            });
+            });// code no work error
         }
     );
 }
