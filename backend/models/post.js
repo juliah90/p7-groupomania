@@ -2,25 +2,30 @@ const { sq } = require("../config/db"); //import the sequelize instance
 
 const { DataTypes } = require("sequelize"); //import DataTypes from sequelize
 
-const User = sq.define("User", {
-    email: {
+const Post = sq.define("Post", {
+    userId: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
     },
 
-    fullName: {
+    title: {
         type: DataTypes.STRING,
     },
 
-    password: {
+    message: {
         type: DataTypes.STRING,
         allowNull: false,
+    },
+
+    multimediaUrl: {
+        type: DataTypes.STRING,
+        allowNull: true,
     }
 });
+//TODO add many to one association to user model
 
-User.sync({ alter: true }).then(() => {
-    console.log("User Model synced");
+Post.sync({ alter: true }).then(() => {
+    console.log("Post Model synced");
 }); //creates the database table for the User model if it doesn't exist and does nothing if it exists
 
-module.exports = User;
+module.exports = Post;

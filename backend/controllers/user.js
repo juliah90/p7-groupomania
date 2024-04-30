@@ -1,4 +1,4 @@
-const User = require('../models/seq');
+const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 // console.log(User)
@@ -31,7 +31,7 @@ exports.signup = (req, res, next) => {
  * @param {*} ensures password and email are valid to help prevent account theft
  */
 exports.login = (req, res, next) => {
-    User.findOne({ email: req.body.email }).then(
+    User.findOne({ where: { email: req.body.email } }).then(
         (user) => {
             if (!user) {
                 return res.status(401).json({
@@ -46,11 +46,11 @@ exports.login = (req, res, next) => {
                         });
                     }
                     const token = jwt.sign(
-                        { userId: user._id },
+                        { userId: user.id },
                         process.env.TOKEN_SECRET,
                         { expiresIn: '24h' });
                     res.status(200).json({
-                        userId: user._id,
+                        userId: user.id,
                         token: token
                     });
                 }
@@ -76,26 +76,26 @@ exports.login = (req, res, next) => {
  * @param {*} delete user profile only if user is the authenticated owner of profile
  */
 exports.delete = (req, res, next) => {
-    const userId = req.auth.userId; //get the id
+    const userId = req.auth.userId; // Get the id
 
-    User.findById(userId)//find user
+    User.findByPk(userId, {})
         .then(user => {
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });
+                return res.status(404).json({ error: 'User not found' });//can't find user
             }
-            if (user._id.toString() !== userId) {
-                return res.status(403).json({ error: 'Unauthorized access' });//if not user show error
+            if (user.id !== userId) {
+                return res.status(403).json({ error: 'Unauthorized access' });//not authorized
             }
-            user.remove()//if auth pass, delete allowed
+            user.destroy()
                 .then(() => {
-                    res.status(200).json({ message: 'User deleted successfully' });
+                    res.status(200).json({ message: 'User deleted successfully' });//it worked
                 })
                 .catch(error => {
-                    res.status(500).json({ error: 'Failed to delete user' });//error for failed to delete
+                    res.status(500).json({ error: 'Failed to delete user' });//it did not work
                 });
         })
         .catch(error => {
-            res.status(500).json({ error: 'Internal server error' });//code no work error
+            console.log(error)
+            res.status(500).json({ error: `Internal server error: ${error.message}` });//code no work
         });
-
-}
+};

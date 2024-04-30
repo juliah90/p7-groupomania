@@ -4,6 +4,7 @@ const path = require('path');
 const app = express();
 
 const userRoutes = require('./routes/user');
+const postRoutes = require('./routes/post');
 
 app.use(express.json());
 
@@ -16,6 +17,7 @@ app.use((req, res, next) => {
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/auth', userRoutes);
+app.use('/api/posts', postRoutes);
 
 // Error handling middleware
 // app.use((err, req, res, next) => {
