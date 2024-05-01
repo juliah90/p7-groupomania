@@ -13,20 +13,21 @@ const Header = () => {
 const styles = {
     header: {
         backgroundColor: '#121559',
+        padding: '20px 0',
         width: '100%',
-        padding: '5px 0',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     },
     logo: {
-        display: 'inline-block',
+        padding: '0 20px',
         width: '190px',
         height: 'auto',
-        padding: '0px 20px',
         textAlign: 'left',
     },
     links: {
-        display: 'inline-block',
+        padding: '0 20px',
         textAlign: 'right',
-        padding: '5px 0',
     },
 };
 
