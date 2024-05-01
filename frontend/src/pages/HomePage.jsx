@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import Navigation from '../components/Navigation';
+import ChatBox from '../components/ChatBox';
 
 function HomePage() {
   return (
@@ -8,6 +9,8 @@ function HomePage() {
       <Header />
       { }
       <Navigation />
+      { }
+      <ChatBox />
       { }
     </div>
   );
