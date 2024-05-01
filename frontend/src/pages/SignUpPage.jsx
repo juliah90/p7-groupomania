@@ -1,8 +1,11 @@
+import React from 'react';
+import Header from '../components/Header';
+
 function SignUpPage() {
     return (
         <div style={{ padding: 20 }}>
-            <h2>Signup Page</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adip.</p>
+            <Header />
+        {}
         </div>
     );
 }

@@ -6,10 +6,8 @@ function HomePage() {
     <div style={{ padding: 20 }}>
         <Header />
         {}
-        <h2>Groupomania</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adip.</p>
     </div>
   );
 }
 
-export default HomePage
+export default HomePage;
