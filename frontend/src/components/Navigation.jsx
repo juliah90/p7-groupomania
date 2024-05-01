@@ -3,13 +3,15 @@ import React from "react";
 const Navigation = () => {
     return (
         <div style={styles.navigation}>
-            <h2 style={styles.links}>Home Profile</h2>
+            <h2 style={styles.links}>Home</h2>
+            <h2 style={styles.links}>Profile</h2>
         </div>
     )
 };
 
 const styles = {
     navigation: {
+        display: 'flex',
         width: '100%',
         textAlign: 'center',
         padding: '5px 0',

@@ -6,6 +6,8 @@ function LoginPage() {
         <div style={{ padding: 20 }}>
             <Header />
             { }
+            <Navigation />
+            { }
         </div>
     );
 };

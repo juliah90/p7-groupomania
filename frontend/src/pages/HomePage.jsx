@@ -4,8 +4,10 @@ import Header from '../components/Header';
 function HomePage() {
   return (
     <div style={{ padding: 20 }}>
-        <Header />
-        {}
+      <Header />
+      { }
+      <Navigation />
+      { }
     </div>
   );
 }
