@@ -5,7 +5,7 @@ function SignUpPage() {
     return (
         <div style={{ padding: 20 }}>
             <Header />
-        {}
+            { }
         </div>
     );
 }
