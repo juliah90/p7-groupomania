@@ -14,7 +14,7 @@ const ChatBox = () => {
 
     return (
         <div className="container">
-            <div>
+            <div className="searchInput">
                 {/* Search input field */}
                 <input
                     type="text"
