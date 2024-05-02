@@ -5,18 +5,15 @@ const Post = require('../models/post');
  * @param {*} allPosts - returns a database of all posts
  */
 exports.getAllPosts = (req, res, next) => {
-    Post.findAll().then(
-        (posts) => {
+    Post.findAll()
+        .then(posts => {
             res.status(200).json(posts);
-        }
-    ).catch(
-        (error) => {
-            res.status(400).json({
-                error: 'Failed to get all posts'
-            });
-        }
-    );
+        })
+        .catch(error => {
+            res.status(500).json({ error: 'Failed to get all posts' });
+        });
 };
+
 
 /**
 * 

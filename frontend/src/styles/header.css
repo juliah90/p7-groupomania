@@ -1,6 +1,6 @@
 .header {
     background-color: #121559;
-    padding: 20px 0;
+    padding: 20px 10px 0px 0px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -15,7 +15,15 @@
 }
 
 .headerLinks {
-    padding: 0 10px
+    padding: 0 10px;
+    color: white;
+}
+
+.headerLinks:hover {
+    color:tomato;
+    border-style:solid;
+    border-radius: 50px;
+    border-color: white;
 }
 
 
@@ -26,7 +34,6 @@
     }
 
     .logo {
-        width: 100%;
         padding: 20px 0;
         text-align: center;
     }

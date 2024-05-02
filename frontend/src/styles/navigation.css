@@ -9,5 +9,13 @@
     text-align: center;
     width: 100%;
     padding: 10px 0;
+    border-style:ridge;
+    border-color: #121559;
+  }
+
+  .navLinks:hover {
+    color:white;
+    background-color: #121559;
+    border-color: tomato;
   }
   
