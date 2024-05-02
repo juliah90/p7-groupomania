@@ -20,32 +20,32 @@ exports.getAllPosts = (req, res, next) => {
 * @param {*} createPost - allows user to create a post
 */
 exports.createPost = (req, res, next) => {
-    req.body.post = JSON.parse(req.body.post);
-    try {
-        validateUser(req.auth.userId, req.body.post.userId);
-    } catch (error) {
-        return res.status(400).json({ error: 'Failed to create post' });
+
+    if (!req.auth || !req.auth.userId) {
+        return res.status(401).json({ error: 'Unauthorized access' });//user must be logged in to post
     }
-    const url = req.protocol + '://' + req.get('host');
+
+    const { userId, name } = req.body.post;
+
     const post = new Post({
-        userId: req.body.post.userId,
-        name: req.body.post.name,
+        userId: userId,
+        name: name,
     });
-    post.save().then(
-        () => {
+
+    post.save()
+        .then(() => {
             res.status(201).json({
                 message: 'Post saved successfully!'
             });
-        }
-    ).catch(
-        (error) => {
-            console.log(error);
+        })
+        .catch((error) => {
+            console.error(error);
             res.status(400).json({
                 error: 'Failed to add Post'
             });
-        }
-    );
+        });
 };
+
 /**
 * 
 * @param {*} onePost - returns a single post
