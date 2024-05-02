@@ -1,3 +1,4 @@
+const { User } = require("./user");
 const { sq } = require("../config/db"); //import the sequelize instance
 
 const { DataTypes } = require("sequelize"); //import DataTypes from sequelize
@@ -22,7 +23,8 @@ const Post = sq.define("Post", {
         allowNull: true,
     }
 });
-//TODO add many to one association to user model
+
+User.hasMany(Post, { foreignKey: "userId" });
 
 Post.sync({ alter: true }).then(() => {
     console.log("Post Model synced");
