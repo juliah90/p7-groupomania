@@ -1,0 +1,24 @@
+.commentContainer {
+    margin-bottom: 20px;
+}
+
+.userInfo {
+    margin-bottom: 5px;
+}
+
+.comment {
+    margin-left: 20px;
+}
+
+.meta {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 10px;
+}

@@ -1,0 +1,39 @@
+.header {
+    background-color: #121559;
+    padding: 20px 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    padding: 0 20px;
+    width: 190px;
+    height: auto;
+    text-align: left;
+}
+
+.headerLinks {
+    padding: 0 10px
+}
+
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        padding: 0 5px;
+    }
+
+    .logo {
+        width: 100%;
+        padding: 20px 0;
+        text-align: center;
+    }
+
+    .links {
+        font-size: 10px;
+        padding: 20px 0;
+        text-align: center;
+    }
+}
