@@ -26,6 +26,6 @@ const Post = sq.define("Post", {
 
 Post.sync({ alter: true }).then(() => {
     console.log("Post Model synced");
-}); //creates the database table for the User model if it doesn't exist and does nothing if it exists
+}); //creates the database table for the post model if it doesn't exist and does nothing if it exists
 
 module.exports = Post;

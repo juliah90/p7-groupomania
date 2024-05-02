@@ -33,8 +33,6 @@ exports.createPost = (req, res, next) => {
     const post = new Post({
         userId: req.body.post.userId,
         name: req.body.post.name,
-
-
     });
     post.save().then(
         () => {
@@ -51,40 +49,50 @@ exports.createPost = (req, res, next) => {
         }
     );
 };
-//TODO DONT FORGET WHERE!!!!!
 /**
 * 
 * @param {*} onePost - returns a single post
 */
 exports.getOnePost = (req, res, next) => {
-    Post.findOne({
-        id: req.params.id
-    }).then(
-        (post) => {
-            res.status(200).json(post);
-        }
-    ).catch(
-        (error) => {
-            res.status(404).json({
-                error: 'Failed to get post'
-            });
-        }
-    );
+    const postId = req.params.id;
+    Post.findOne({ where: { id: postId } })
+        .then(post => {
+            if (!post) {
+                return res.status(404).json({ error: 'Post not found' });
+            }
+            res.status(200).json(post); // Return the found post
+        })
+        .catch(error => {
+            console.error('Error retrieving post:', error);
+            res.status(500).json({ error: 'Failed to retrieve post' });
+        });
 };
+
 
 /**
  * 
  * @param {*} mark post as read
  */
 exports.readPost = (req, res, next) => {
- post.findOne({
-    id: req.params.id
- }).catch(
-    (error) => {
-        res.status(404).json({
-            error: 'Failed to find post'
+    const postId = req.params.id;
+
+    Post.findOne({ where: { id: postId } })
+        .then(post => {
+            if (!post) {
+                return res.status(404).json({ error: 'Post not found' });
+            }
+
+            post.read = true;//update read status
+
+            post.save()//save the post
+                .then(() => {
+                    res.status(200).json({ message: 'Post marked as read' });
+                })
+                .catch(error => {
+                    res.status(500).json({ error: 'Failed to mark post as read' });
+                });
+        })
+        .catch(error => {
+            res.status(500).json({ error: 'Failed to find post' });
         });
-    }
-);
 };
-//TODO exports.read -4
