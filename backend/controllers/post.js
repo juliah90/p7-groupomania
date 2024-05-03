@@ -29,7 +29,10 @@ exports.createPost = (req, res, next) => {
 
     const post = new Post({
         userId: userId,
-        name: name,
+        title: name,
+        message: message,
+        multimedia: multimedia,
+        multimediaUrl: multimediaUrl,
     });
 
     post.save()

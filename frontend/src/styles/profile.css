@@ -1,0 +1,23 @@
+.profilePictureAndName {
+    display: flex;
+}
+
+.profileImage {
+    border-radius: 50%;
+}
+
+.profileName {
+    font-weight: bold;
+}
+
+.companyPosition {
+    font-weight: bold;
+}
+
+.editProfile {
+    font-style: italic;
+}
+
+.aboutMe {
+    font-weight: bold;
+}
