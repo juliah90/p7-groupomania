@@ -12,7 +12,9 @@ const UserProfile = () => {
           <p className="editProfile">Edit Profile</p>
         </div>
       </div>
-      <div className="aboutMe">About Me</div>
+      <div className="aboutMeContainer">
+        <h1 className='aboutMe'>About Me</h1>
+        </div>
     </div>
   );
 };
