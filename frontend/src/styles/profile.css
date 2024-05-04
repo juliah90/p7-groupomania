@@ -1,57 +1,61 @@
-.pageContainer {
+.profileContainer {
     padding: 10px;
 }
 
-.profileContainer {
+.profileWrapper {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
 }
 
-.profilePictureAndName {
+.profile {
+    width: 200px;
+    height: 200px;
+    background-color: #121559;
+    border-radius: 10px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    margin-bottom: 20px;
+    justify-content: space-between;
+    padding: 20px;
 }
 
 .profilePicture {
-    width: 100px;
-    height: 100px;
+    position: relative;
+}
+
+.profileImage {
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    border: 2px solid white;
-    background-color: #121559;
+    border: 3px solid white;
+}
+
+.editProfileLink {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.editProfileIcon {
+    width: 20px;
+    height: 20px;
 }
 
 .profileInfo {
-    margin-left: 20px;
-}
-
-.profileName {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.companyPosition {
-    margin-bottom: 10px;
-}
-
-.editProfile {
-    color: blue;
-    cursor: pointer;
-}
-
-.aboutMeContainer {
-    border: 2px solid #121559;
-    border-radius: 8px;
-    padding: 10px;
-    margin: 10px auto;
-    width: 350px;
-    height: 200px;
+    text-align: center;
 }
 
 .aboutMe {
-    font-weight: bold;
-    position:relative;
-    right: 3px;
-    bottom: 20px;
-    font-size: x-large;
+    margin-top: 20px;
+}
+
+.aboutMe h3 {
+    margin-bottom: 10px;
+}
+
+.aboutMeInput {
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
 }
