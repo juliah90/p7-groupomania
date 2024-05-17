@@ -1,12 +1,16 @@
-.commentContainer {
+.messageContainer {
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 2px solid #ffd7d7;
+    padding-bottom: 5px;
 }
 
 .userInfo {
     margin-bottom: 5px;
 }
 
-.comment {
+.message {
     margin-left: 20px;
 }
 
@@ -14,6 +18,7 @@
     display: flex;
     align-items: center;
     margin-top: 5px;
+    padding-left: 20px;
 }
 
 .circle {

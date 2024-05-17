@@ -1,53 +1,59 @@
-import React, { useState } from "react";
-import Comment from "./Comment";
+import React, { useState, useEffect } from "react";
 import '../styles/chatbox.css';
-
+import Message from "./Message";
 
 const ChatBox = () => {
-    const [searchQuery, setSearchQuery] = useState('');
-    const [messages, setMessages] = useState([]);
+    const [messageInput, setMessageInput] = useState(''); // Message input
+    const [messages, setMessages] = useState(() => {
+        const storedMessages = localStorage.getItem('messages');
+        return storedMessages ? JSON.parse(storedMessages) : [];
+    }); // store messages
 
-    // Filter messages based on search query
-    const filteredMessages = messages.filter(message => {
-        return message.content.toLowerCase().includes(searchQuery.toLowerCase());
-    });
+    // Save messages to local storage whenever messages change
+    useEffect(() => {//FIXME get latest messages from backend using axios
+        //TODO update useEffect react hook so that it can be refreshed programatically
+        localStorage.setItem('messages', JSON.stringify(messages));
+    }, [messages]);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Add the typed message to the messages array
+        const newMessage = {
+            content: messageInput,
+            timestamp: new Date().toLocaleString(),
+            read: false // Assuming all new messages are unread
+        };
+        setMessages(prevMessages => [...prevMessages, newMessage]);
+        // Clear the message input
+        setMessageInput('');
+    };
 
     return (
         <div className="container">
-            <div className="searchInput">
-                {/* Search input field */}
-                <input
-                    type="text"
-                    placeholder="Search messages..."
-                    value={searchQuery}
-                    onChange={e => setSearchQuery(e.target.value)}
-                />
-
-                {/* Display filtered messages */}
-                <div>
-                    {filteredMessages.map(message => (
-                        <div key={message.id}>
-                            <p>{message.content}</p>
-                            <p>Sender: {message.sender}</p>
-                            <p>Timestamp: {message.timestamp}</p>
-                        </div>
-                    ))}
-                </div>
-            </div>
             <div className="messages">
-                {<Comment />}
+                {messages.map((message, index) => (
+                    <Message
+                        key={index}
+                        content={message.content}
+                        timestamp={message.timestamp}
+                        read={message.read} // Pass the read status to the Message component
+                    />
+                ))}
             </div>
             <div className="inputContainer">
-                <input
-                    type="text"
-                    placeholder="Type your message here..."
-                    className="input"
-                />
-                <button className="button">Send</button>
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        placeholder="Type your message here..."
+                        className="input"
+                        value={messageInput}
+                        onChange={(e) => setMessageInput(e.target.value)}
+                    />
+                    <button type="submit" className="button">Send</button>
+                </form>
             </div>
         </div>
     );
 };
-
 
 export default ChatBox;

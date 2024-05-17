@@ -1,5 +1,5 @@
-.header {
-    background-color: #121559;
+.containerHead {
+    background-color: #fd2d01;
     padding: 20px 10px 0px 0px;
     width: 100%;
     display: flex;
@@ -17,13 +17,29 @@
 .headerLinks {
     padding: 0 10px;
     color: white;
+    text-align: center;
 }
 
-.headerLinks:hover {
-    color:tomato;
-    border-style:solid;
+.loginButton,
+.signUpButton,
+.signOutButton {
+    background-color: #fd2d01;
+    border: none;
+    font-size: large;
+    font-weight: 700;
+    padding: 11px;
+}
+
+.loginButton:hover,
+.signUpButton:hover,
+.signOutButton:hover {
+    color: black;
+    border-style: dotted;
     border-radius: 50px;
     border-color: white;
+    padding: 8px;
+    text-align: center;
+    font-size: large;
 }
 
 
@@ -38,7 +54,7 @@
         text-align: center;
     }
 
-    .links {
+    .headerLinks {
         font-size: 10px;
         padding: 20px 0;
         text-align: center;

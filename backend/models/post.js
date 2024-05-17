@@ -1,14 +1,11 @@
-const { User } = require("./user");
+const User = require("./user");
 const { sq } = require("../config/db"); //import the sequelize instance
 
 const { DataTypes } = require("sequelize"); //import DataTypes from sequelize
 
 const Post = sq.define("Post", {
-    userId: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-
+    //TODO update to include read status
+    
     title: {
         type: DataTypes.STRING,
     },

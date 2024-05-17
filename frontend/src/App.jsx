@@ -7,6 +7,8 @@ import LoginPage from './pages/LoginPage';
 import UserProfilePage from './pages/UserProfilePage';
 import ProfileEditPage from './pages/ProfileEditPage';
 
+//TODO add protected routes - session notes
+
 // function App() {
 //   return (
 //     <div className="App">

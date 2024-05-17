@@ -25,14 +25,14 @@ exports.createPost = (req, res, next) => {
         return res.status(401).json({ error: 'Unauthorized access' });//user must be logged in to post
     }
 
-    const { userId, name } = req.body.post;
+    const { userId, title, message } = JSON.parse(req.body.post);
+    const url = req.protocol + '://' + req.get('host');
 
     const post = new Post({
         userId: userId,
-        title: name,
+        title: title,
         message: message,
-        multimedia: multimedia,
-        multimediaUrl: multimediaUrl,
+        multimediaUrl: url + '/images/' + req.file.filename,
     });
 
     post.save()

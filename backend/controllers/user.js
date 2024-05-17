@@ -76,6 +76,7 @@ exports.login = (req, res, next) => {
  * @param {*} delete user profile only if user is the authenticated owner of profile
  */
 exports.delete = (req, res, next) => {
+    //FIXME get id from req.params
     const userId = req.auth.userId; // Get the id
 
     User.findByPk(userId, {})

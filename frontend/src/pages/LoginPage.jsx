@@ -1,35 +1,42 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../components/Header';
-import "../styles/login.css"
+import "../styles/login.css";
 
 function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const Navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-        // Prevent the default form submission and page reload
         e.preventDefault();
+        setError(''); // Clear previous error message
 
         try {
-            // Make an HTTP POST request to your login endpoint
-            const response = await axios.post("https://example.com/login", { email, password });
-            
-            // Handle the response from the server
-            console.log(response.data); // For example, log the response data to the console
+            const response = await axios.post("http://localhost:3000/api/auth/login", { email, password });
+            // Store user information in local storage
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+            // Redirect to home page
+            Navigate('/home');
         } catch (error) {
-            // Handle any errors that occur during the request
-            console.error(error);
+            console.error("Login error:", error);
+            if (error.response && error.response.status === 401) {
+                setError('Incorrect username or password.');
+            } else {
+                setError('An error occurred. Please try again later.');
+            }
         }
     };
 
     return (
         <div style={{ padding: 20 }}>
             <Header />
-            { }
             <div>
-            <form id="login" onSubmit={handleSubmit}>
+                <form id="login" onSubmit={handleSubmit}>
                     <h1>Login</h1>
+                    {error && <div className="error">{error}</div>}
                     <p className="item">
                         <label htmlFor="email"> Email </label>
                         <input

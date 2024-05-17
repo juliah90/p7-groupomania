@@ -1,6 +1,5 @@
 import React from 'react';
 import '../styles/profile.css';
-import editProfilePencil from '../assets/edit-pencil.svg';
 
 const UserProfile = () => {
   return (
@@ -8,9 +7,6 @@ const UserProfile = () => {
                 <div className="profile">
                     <div className="profilePicture">
                         <img src="user-profile-image.jpg" alt="Profile" className="profileImage" />
-                        <a href="#" className="editProfileLink">
-                            <img src={editProfilePencil} alt="Edit Profile" className="editProfileIcon" />
-                        </a>
                     </div>
                     <div className="profileInfo">
                         <h1 className="profileName">Jane Doe</h1>
