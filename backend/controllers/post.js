@@ -14,38 +14,30 @@ exports.getAllPosts = (req, res, next) => {
         });
 };
 
-
 /**
 * 
 * @param {*} createPost - allows user to create a post
 */
 exports.createPost = (req, res, next) => {
-
     if (!req.auth || !req.auth.userId) {
         return res.status(401).json({ error: 'Unauthorized access' });//user must be logged in to post
     }
 
     const { userId, title, message } = JSON.parse(req.body.post);
-    const url = req.protocol + '://' + req.get('host');
-
     const post = new Post({
         userId: userId,
         title: title,
         message: message,
-        multimediaUrl: url + '/images/' + req.file.filename,
+        multimediaUrl: req.file ? req.protocol + '://' + req.get('host') + '/multimedia/' + req.file.filename : null,
     });
 
     post.save()
         .then(() => {
-            res.status(201).json({
-                message: 'Post saved successfully!'
-            });
+            res.status(201).json({ message: 'Post saved successfully!' });
         })
         .catch((error) => {
             console.error(error);
-            res.status(400).json({
-                error: 'Failed to add Post'
-            });
+            res.status(400).json({ error: 'Failed to add Post' });
         });
 };
 
@@ -60,14 +52,13 @@ exports.getOnePost = (req, res, next) => {
             if (!post) {
                 return res.status(404).json({ error: 'Post not found' });
             }
-            res.status(200).json(post); // Return the found post
+            res.status(200).json(post);
         })
         .catch(error => {
             console.error('Error retrieving post:', error);
             res.status(500).json({ error: 'Failed to retrieve post' });
         });
 };
-
 
 /**
  * 
@@ -82,9 +73,9 @@ exports.readPost = (req, res, next) => {
                 return res.status(404).json({ error: 'Post not found' });
             }
 
-            post.read = true;//update read status
+            post.read = true;
 
-            post.save()//save the post
+            post.save()
                 .then(() => {
                     res.status(200).json({ message: 'Post marked as read' });
                 })

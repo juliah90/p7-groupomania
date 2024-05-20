@@ -29,6 +29,12 @@
     overflow: hidden;
 }
 
+.paperclipIcon {
+    cursor: pointer;
+    color: black;
+    margin-right: 10px;
+  }
+
 .button {
     padding: 8px 16px;
     background-color: #fd2d01;

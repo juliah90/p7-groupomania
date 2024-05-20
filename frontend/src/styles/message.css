@@ -1,29 +1,29 @@
+/* message.css */
 .messageContainer {
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    border-bottom: 2px solid #ffd7d7;
-    padding-bottom: 5px;
-}
-
-.userInfo {
-    margin-bottom: 5px;
-}
-
-.message {
-    margin-left: 20px;
-}
-
-.meta {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .userInfo {
+    font-weight: bold;
+  }
+  
+  .message {
+    margin: 5px 0;
+  }
+  
+  .meta {
     display: flex;
     align-items: center;
-    margin-top: 5px;
-    padding-left: 20px;
-}
-
-.circle {
+    font-size: 0.8em;
+    color: gray;
+  }
+  
+  .circle {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    margin-right: 10px;
-}
+    margin-right: 5px;
+  }
+  

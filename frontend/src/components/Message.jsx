@@ -1,20 +1,22 @@
 import React from "react";
 import "../styles/message.css";
 
-const Message = ({ sender, content, timestamp, read }) => {
-  const circleColor = read ? "green" : "red";
+const Message = ({ message, isExpanded, onToggle }) => {
+  const previewContent = message.content.length > 10 ? message.content.substring(0, 10) + '...' : message.content;
+  const contentToDisplay = isExpanded ? message.content : previewContent;
+  const circleColor = message.read ? "green" : "red";
 
   return (
-    <div className="messageContainer">
+    <div className="messageContainer" onClick={onToggle}>
       <div className="userInfo">
-        <strong>{sender}</strong>
+        <strong>{message.name}</strong>
       </div>
-      <div className="messageContent">
-        <p>{content}</p>
+      <div className="message">
+        <p>{contentToDisplay}</p>
       </div>
       <div className="meta">
         <div className="circle" style={{ backgroundColor: circleColor }}></div>
-        <span>{timestamp}</span>
+        <span>{message.timestamp}</span>
       </div>
     </div>
   );

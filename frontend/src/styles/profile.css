@@ -32,16 +32,6 @@
     border: 3px solid white;
 }
 
-.editProfileLink {
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-}
-
-.editProfileIcon {
-    width: 20px;
-    height: 20px;
-}
 
 .profileInfo {
     text-align: center;
