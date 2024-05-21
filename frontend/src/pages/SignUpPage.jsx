@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Header from '../components/Header';
 import "../styles/login.css";
 
-function SignUpPage() {
+function SignUpPage({ onLogin }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const Navigate = useNavigate();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -16,10 +15,12 @@ function SignUpPage() {
 
         try {
             const response = await axios.post("http://localhost:3000/api/auth/signup", { email, password });
-            // Store user information in local storage
-            localStorage.setItem('user', JSON.stringify(response.data.user));
-            // Redirect to home page
-            Navigate('/home');
+
+            localStorage.setItem('token', response.data.token);
+            
+            onLogin();
+            // Redirect to profile creation page
+            navigate('/createProfile');
         } catch (error) {
             console.error("Signup error:", error);
             if (error.response && error.response.status === 409) {

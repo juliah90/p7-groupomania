@@ -16,7 +16,22 @@ const User = sq.define("User", {
     password: {
         type: DataTypes.STRING,
         allowNull: false,
-    }
+    },
+
+    profilePicture: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+
+    position: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+
+    aboutMe: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+    },
 });
 
 User.sync({ alter: true }).then(() => {

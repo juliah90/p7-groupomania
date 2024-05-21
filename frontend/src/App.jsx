@@ -1,22 +1,21 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './pages/SignUpPage';
 import SignUpPage from './pages/SignUpPage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import UserProfilePage from './pages/UserProfilePage';
 import Header from './components/Header';
 import PrivateRoutes from './components/PrivateRoutes';
-
+import CreateProfilePage from './pages/CreateProfilePage';
 
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const user = localStorage.getItem('user');
-    if (user) {
+    const token = localStorage.getItem('token');
+    if (token) {
       setIsLoggedIn(true);
     }
   }, []);
@@ -26,7 +25,7 @@ function App() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('user');
+    localStorage.removeItem('token');
     setIsLoggedIn(false);
   };
 
@@ -35,14 +34,15 @@ function App() {
       <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
       <Routes>
         <Route path="/signup" element={<SignUpPage onLogin={handleLogin} />} />
-        <Route element={<PrivateRoutes />}>
+        <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+        <Route element={<PrivateRoutes isLoggedIn={isLoggedIn} />}>
           <Route path="/home" element={<HomePage />} />
           <Route path="/profile" element={<UserProfilePage />} />
+          <Route path="/createProfile" element={<CreateProfilePage />} />
         </Route>
-        <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
       </Routes>
     </Router>
   );
 }
-//check for token
+
 export default App;

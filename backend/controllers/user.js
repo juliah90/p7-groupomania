@@ -1,30 +1,44 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-// console.log(User)
+
 /**
  * 
  * @param {*} controls user signup and prevents repeat emails
  */
 exports.signup = (req, res, next) => {
-    console.log('signup')
-    bcrypt.hash(req.body.password, 10).then((hash) => {
-        const user = new User({
-            email: req.body.email,
-            password: hash
-        });//password protect
-        user.save().then(() => {
-            res.status(201).json({
-                message: 'User added successfully!'
-            });//added user
-        }
-        ).catch((error) => {
-            res.status(500).json({
-                error: error
-            });//code no work error
+    const { email, password } = req.body;
+
+    // Basic validation
+    if (!email || !password) {
+        return res.status(400).json({ error: 'Email and password are required' });
+    }
+
+    bcrypt.hash(password, 10)
+        .then((hash) => {
+            const user = new User({
+                email: email,
+                password: hash
+            });
+
+            user.save()
+                .then(() => {
+                    res.status(201).json({ message: 'User added successfully' });
+                })
+                .catch((error) => {
+                    // Check for duplicate key error (email already exists)
+                    if (error.name === 'SequelizeUniqueConstraintError') {
+                        res.status(400).json({ error: 'Email already exists' });
+                    } else {
+                        res.status(500).json({ error: 'Failed to add user' });
+                    }
+                });
         })
-    })
+        .catch((error) => {
+            res.status(500).json({ error: 'Failed to hash password' });
+        });
 };
+
 
 /**
  * 
@@ -76,15 +90,15 @@ exports.login = (req, res, next) => {
  * @param {*} delete user profile only if user is the authenticated owner of profile
  */
 exports.delete = (req, res, next) => {
-    //FIXME get id from req.params
-    const userId = req.auth.userId; // Get the id
+    const userId = req.params.id; // Get the user ID from request parameters
+    const authUserId = req.auth.userId; // Get the authenticated user ID from the token
 
     User.findByPk(userId, {})
         .then(user => {
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });//can't find user
             }
-            if (user.id !== userId) {
+            if (user.id !== authUserId) {
                 return res.status(403).json({ error: 'Unauthorized access' });//not authorized
             }
             user.destroy()
@@ -99,4 +113,28 @@ exports.delete = (req, res, next) => {
             console.log(error)
             res.status(500).json({ error: `Internal server error: ${error.message}` });//code no work
         });
+};
+
+
+exports.updateProfile = (req, res, next) => {
+    const userId = req.auth.userId;
+    const { name, position, aboutMe } = req.body;
+    const profilePicture = req.file ? req.file.path : null;
+
+    User.update({ name, position, aboutMe, profilePicture }, { where: { id: userId } })
+        .then(() => res.status(200).json({ message: 'Profile updated successfully' }))
+        .catch(error => res.status(500).json({ error }));
+};
+
+
+exports.getProfile = (req, res, next) => {
+    const userId = req.auth.userId;
+    User.findByPk(userId)
+        .then(user => {
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+            res.status(200).json(user);
+        })
+        .catch(error => res.status(500).json({ error }));
 };
