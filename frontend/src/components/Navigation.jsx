@@ -1,14 +1,24 @@
 import React from "react";
-import "../styles/navigation.css"
+import { useNavigate } from 'react-router-dom';
+import "../styles/navigation.css";
 
 const Navigation = () => {
+    const navigate = useNavigate();
+
+    const homeNavClick = () => {
+        navigate('/home');
+    };
+
+    const profileNavClick = () => {
+        navigate('/profile');
+    };
+
     return (
         <div className="navigation">
-            <h2 className="navLinks">Home</h2>
-            <h2 className="navLinks">Profile</h2>
+            <button onClick={homeNavClick} className="navLinks">Home</button>
+            <button onClick={profileNavClick} className="navLinks">Profile</button>
         </div>
-    )
+    );
 };
-
 
 export default Navigation;

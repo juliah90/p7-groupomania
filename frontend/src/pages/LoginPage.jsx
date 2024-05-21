@@ -17,7 +17,7 @@ function LoginPage() {
         try {
             const response = await axios.post("http://localhost:3000/api/auth/login", { email, password });
             // Store user information in local storage
-            localStorage.setItem('user', JSON.stringify(response.data.user));
+            localStorage.setItem('user', JSON.stringify(response.data));
             // Redirect to home page
             Navigate('/home');
         } catch (error) {

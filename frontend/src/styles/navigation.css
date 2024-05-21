@@ -6,11 +6,14 @@
   }
   
   .navLinks {
+    font-weight: 900;
     text-align: center;
+    font-size: larger;
     width: 100%;
     padding: 10px 0;
+    background-color: white;
     border-radius: 50%;
-    border-style:dotted;
+    border-style: dotted;
     border-color: #fd2d01;
   }
 
@@ -18,5 +21,6 @@
     color:black;
     background-color: #ffd7d7;
     font-style: italic;
+    cursor: pointer;
   }
   

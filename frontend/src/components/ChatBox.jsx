@@ -9,12 +9,17 @@ const ChatBox = () => {
   const [messageInput, setMessageInput] = useState('');
   const [messages, setMessages] = useState([]);
   const [file, setFile] = useState(null);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
-    axios.get('/api/posts')
-      .then(response => setMessages(response.data))
+    const headers = { 'Authorization': `Bearer ${user.token}` };
+    axios.get('http://localhost:3000/api/posts', { headers })
+      .then(response => {
+        setMessages(response.data);
+        console.log(response.data); // Ensure multimediaUrl is present in the data
+      })
       .catch(error => console.error('Error fetching messages:', error));
-  }, []);
+  }, [user.token]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,9 +29,11 @@ const ChatBox = () => {
       formData.append('file', file);
     }
 
-    axios.post('/api/posts', formData)
+    axios.post('http://localhost:3000/api/posts', formData, {
+      headers: { 'Authorization': `Bearer ${user.token}` }
+    })
       .then(response => {
-        setMessages(prevMessages => [...prevMessages, response.data]);
+        setMessages(prevMessages => [...prevMessages, response.data.post]);
         setMessageInput('');
         setFile(null);
       })
@@ -47,11 +54,9 @@ const ChatBox = () => {
         {messages.map((message, index) => (
           <Message
             key={index}
-            name={message.name}
-            content={message.content}
-            multimediaUrl={message.multimediaUrl}
-            timestamp={message.timestamp}
-            read={message.read}
+            message={message}
+            isExpanded={false}
+            onToggle={() => {}}
           />
         ))}
       </div>

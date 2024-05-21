@@ -20,7 +20,7 @@ exports.getAllPosts = (req, res, next) => {
 */
 exports.createPost = (req, res, next) => {
     if (!req.auth || !req.auth.userId) {
-        return res.status(401).json({ error: 'Unauthorized access' });//user must be logged in to post
+        return res.status(401).json({ error: 'Unauthorized access' });
     }
 
     const { userId, title, message } = JSON.parse(req.body.post);
@@ -28,18 +28,19 @@ exports.createPost = (req, res, next) => {
         userId: userId,
         title: title,
         message: message,
-        multimediaUrl: req.file ? req.protocol + '://' + req.get('host') + '/multimedia/' + req.file.filename : null,
+        multimediaUrl: req.file ? `${req.protocol}://${req.get('host')}/multimedia/${req.file.filename}` : null,
     });
 
     post.save()
-        .then(() => {
-            res.status(201).json({ message: 'Post saved successfully!' });
+        .then(savedPost => {
+            res.status(201).json({ message: 'Post saved successfully!', post: savedPost });
         })
         .catch((error) => {
             console.error(error);
             res.status(400).json({ error: 'Failed to add Post' });
         });
 };
+
 
 /**
 * 
