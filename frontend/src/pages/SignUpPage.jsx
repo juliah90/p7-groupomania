@@ -32,7 +32,6 @@ function SignUpPage() {
 
     return (
         <div style={{ padding: 20 }}>
-            <Header />
             <div>
                 <form id="signup" onSubmit={handleSubmit}>
                     <h1>New User Sign Up</h1>
@@ -62,7 +61,6 @@ function SignUpPage() {
                     </p>
                 </form>
             </div>
-            <div className='signInRedirect'>Already have an account? Sign in here.</div>
         </div>
     );
 }

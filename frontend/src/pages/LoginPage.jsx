@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Header from '../components/Header';
 import "../styles/login.css";
 
-function LoginPage() {
+function LoginPage({ onLogin }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -18,6 +17,7 @@ function LoginPage() {
             const response = await axios.post("http://localhost:3000/api/auth/login", { email, password });
             // Store user information in local storage
             localStorage.setItem('user', JSON.stringify(response.data));
+            onLogin();
             // Redirect to home page
             Navigate('/home');
         } catch (error) {
@@ -32,7 +32,6 @@ function LoginPage() {
 
     return (
         <div style={{ padding: 20 }}>
-            <Header />
             <div>
                 <form id="login" onSubmit={handleSubmit}>
                     <h1>Login</h1>
@@ -62,7 +61,6 @@ function LoginPage() {
                     </p>
                 </form>
             </div>
-            <div className='newUserRedirect'>New user? Sign up here!</div>
         </div>
     );
 };

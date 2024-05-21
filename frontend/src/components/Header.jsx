@@ -7,17 +7,19 @@ function Header({ isLoggedIn, onLogout }) {
     const navigate = useNavigate();
 
     const handleLogin = () => {
-        navigate('/home');//after login redirect
+        navigate('/login'); // Navigate to the login page
     };
 
     const handleSignUp = () => {
-        navigate('/home');//after signup, redirect
+        navigate('/signup'); // Navigate to the signup page
     };
 
     const handleLogout = () => {
-        //TODO clear user info from local storage
-        navigate('/login');// after log out, redirect
+        localStorage.removeItem('user');
+        onLogout();
+        navigate('/login');
     };
+
     return (
         <div className="containerHead">
             <img src={logo} alt="Company Logo" className="logo" />

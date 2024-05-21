@@ -7,8 +7,6 @@ import "../styles/profile.css"
 function UserProfilePage() {
     return (
         <div style={{ padding: 10 }}>
-            <Header />
-            { }
             <Navigation />
             { }
             <UserProfile />

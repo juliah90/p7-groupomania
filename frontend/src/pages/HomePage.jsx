@@ -6,8 +6,6 @@ import ChatBox from '../components/ChatBox';
 function HomePage() {
   return (
     <div style={{ padding: 20 }}>
-      <Header />
-      { }
       <Navigation />
       { }
       <ChatBox />
