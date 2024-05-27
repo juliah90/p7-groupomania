@@ -20,17 +20,19 @@ const CreateProfilePage = () => {
     }
 
     try {
-      await axios.put('http://localhost:3000/api/profile', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        },
+      const token = JSON.parse(localStorage.getItem('user')).token;
+      await axios.post('http://localhost:3000/api/profile', formData, {
+          headers: {
+              'Content-Type': 'multipart/form-data',
+              'Authorization': `Bearer ${token}`,
+          },
       });
-      navigate('/profile');
-    } catch (error) {
-      console.error('Error updating profile', error);
-    }
-  };
+      // navigate to profile page
+  } catch (error) {
+      console.error('Error creating profile:', error);
+      // show error message
+  }
+};
 
   return (
     <form onSubmit={handleSubmit}>

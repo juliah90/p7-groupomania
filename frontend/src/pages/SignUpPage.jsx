@@ -15,11 +15,11 @@ function SignUpPage({ onLogin }) {
 
         try {
             const response = await axios.post("http://localhost:3000/api/auth/signup", { email, password });
-
-            localStorage.setItem('token', response.data.token);
-            
+            // store user information and token in local storage
+            localStorage.setItem('user', JSON.stringify({ userId: response.data.userId, token: response.data.token }));
+            // trigger the login state
             onLogin();
-            // Redirect to profile creation page
+            // redirect to profile creation page
             navigate('/createProfile');
         } catch (error) {
             console.error("Signup error:", error);

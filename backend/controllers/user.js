@@ -2,14 +2,9 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-/**
- * 
- * @param {*} controls user signup and prevents repeat emails
- */
 exports.signup = (req, res, next) => {
     const { email, password } = req.body;
 
-    // Basic validation
     if (!email || !password) {
         return res.status(400).json({ error: 'Email and password are required' });
     }
@@ -22,11 +17,19 @@ exports.signup = (req, res, next) => {
             });
 
             user.save()
-                .then(() => {
-                    res.status(201).json({ message: 'User added successfully' });
+                .then((savedUser) => {
+                    const token = jwt.sign(
+                        { userId: savedUser.id },
+                        process.env.TOKEN_SECRET,
+                        { expiresIn: '24h' }
+                    );
+                    res.status(201).json({
+                        message: 'User added successfully',
+                        userId: savedUser.id,
+                        token: token
+                    });
                 })
                 .catch((error) => {
-                    // Check for duplicate key error (email already exists)
                     if (error.name === 'SequelizeUniqueConstraintError') {
                         res.status(400).json({ error: 'Email already exists' });
                     } else {
@@ -39,24 +42,19 @@ exports.signup = (req, res, next) => {
         });
 };
 
-
-/**
- * 
- * @param {*} ensures password and email are valid to help prevent account theft
- */
 exports.login = (req, res, next) => {
     User.findOne({ where: { email: req.body.email } }).then(
         (user) => {
             if (!user) {
                 return res.status(401).json({
-                    error: new Error('User not found!')//find user
+                    error: new Error('User not found!')
                 });
             }
             bcrypt.compare(req.body.password, user.password).then(
                 (valid) => {
                     if (!valid) {
                         return res.status(401).json({
-                            error: new Error('Incorrect password!')//authenticate password
+                            error: new Error('Incorrect password!')
                         });
                     }
                     const token = jwt.sign(
@@ -80,52 +78,46 @@ exports.login = (req, res, next) => {
         (error) => {
             res.status(500).json({
                 error: error
-            });// code no work error
+            });
         }
     );
 }
 
-/**
- * 
- * @param {*} delete user profile only if user is the authenticated owner of profile
- */
 exports.delete = (req, res, next) => {
-    const userId = req.params.id; // Get the user ID from request parameters
-    const authUserId = req.auth.userId; // Get the authenticated user ID from the token
+    const userId = req.params.id;
+    const authUserId = req.auth.userId;
 
     User.findByPk(userId, {})
         .then(user => {
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });//can't find user
+                return res.status(404).json({ error: 'User not found' });
             }
             if (user.id !== authUserId) {
-                return res.status(403).json({ error: 'Unauthorized access' });//not authorized
+                return res.status(403).json({ error: 'Unauthorized access' });
             }
             user.destroy()
                 .then(() => {
-                    res.status(200).json({ message: 'User deleted successfully' });//it worked
+                    res.status(200).json({ message: 'User deleted successfully' });
                 })
                 .catch(error => {
-                    res.status(500).json({ error: 'Failed to delete user' });//it did not work
+                    res.status(500).json({ error: 'Failed to delete user' });
                 });
         })
         .catch(error => {
             console.log(error)
-            res.status(500).json({ error: `Internal server error: ${error.message}` });//code no work
+            res.status(500).json({ error: `Internal server error: ${error.message}` });
         });
 };
-
 
 exports.updateProfile = (req, res, next) => {
     const userId = req.auth.userId;
     const { name, position, aboutMe } = req.body;
-    const profilePicture = req.file ? req.file.path : null;
+    const profilePicture = req.file ? `${req.protocol}://${req.get('host')}/multimedia/${req.file.filename}` : null;
 
     User.update({ name, position, aboutMe, profilePicture }, { where: { id: userId } })
         .then(() => res.status(200).json({ message: 'Profile updated successfully' }))
         .catch(error => res.status(500).json({ error }));
 };
-
 
 exports.getProfile = (req, res, next) => {
     const userId = req.auth.userId;
