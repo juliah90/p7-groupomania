@@ -8,12 +8,12 @@ const UserProfilePage = () => {
   const [profileData, setProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user.token)
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/profile', {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-      },
+    axios.get(`http://localhost:3000/api/auth/${user.userId}`, {
+      headers: { 'Authorization': `Bearer ${user.token}` }
     })
       .then(response => {
         setProfileData(response.data);

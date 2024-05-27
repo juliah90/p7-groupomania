@@ -5,9 +5,10 @@ const UserProfile = ({ profileData }) => {
   return (
     <div className="profileWrapper">
       <div className="profile">
-        <div className="profilePicture">
+        {/* TODO use real profile picture */}
+        {/* <div className="profilePicture">
           <img src={profileData.profilePicture || "default-profile-image.jpg"} alt="Profile" className="profileImage" />
-        </div>
+        </div> */}
         <div className="profileInfo">
           <h1 className="profileName">{profileData.name || "Jane Doe"}</h1>
           <h2 className="companyPosition">{profileData.position || "General Merchandiser"}</h2>

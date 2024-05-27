@@ -8,6 +8,7 @@ const CreateProfilePage = () => {
   const [aboutMe, setAboutMe] = useState('');
   const [profilePicture, setProfilePicture] = useState(null);
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,8 +27,9 @@ const CreateProfilePage = () => {
               'Content-Type': 'multipart/form-data',
               'Authorization': `Bearer ${token}`,
           },
+          withCredentials: true // Include credentials
       });
-      // navigate to profile page
+      navigate('/profile'); // navigate to profile page
   } catch (error) {
       console.error('Error creating profile:', error);
       // show error message
