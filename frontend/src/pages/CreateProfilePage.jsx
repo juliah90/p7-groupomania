@@ -22,12 +22,11 @@ const CreateProfilePage = () => {
 
     try {
       const token = JSON.parse(localStorage.getItem('user')).token;
-      await axios.post('http://localhost:3000/api/profile', formData, {
+      await axios.post(`http://localhost:3000/api/auth/${user.userId}`, formData, {
           headers: {
               'Content-Type': 'multipart/form-data',
               'Authorization': `Bearer ${token}`,
           },
-          withCredentials: true // Include credentials
       });
       navigate('/profile'); // navigate to profile page
   } catch (error) {
@@ -38,11 +37,11 @@ const CreateProfilePage = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" required />
-      <input type="text" value={position} onChange={(e) => setPosition(e.target.value)} placeholder="Position" required />
-      <textarea value={aboutMe} onChange={(e) => setAboutMe(e.target.value)} placeholder="About Me" maxLength={200} required />
-      <input type="file" onChange={(e) => setProfilePicture(e.target.files[0])} />
-      <button type="submit">Submit</button>
+      <input className="NameField" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" required />
+      <input className="PositionField"type="text" value={position} onChange={(e) => setPosition(e.target.value)} placeholder="Position" required />
+      <textarea className="TextField" value={aboutMe} onChange={(e) => setAboutMe(e.target.value)} placeholder="About Me" maxLength={200} required />
+      <input className="PictureField" type="file" onChange={(e) => setProfilePicture(e.target.files[0])} />
+      <button className="SubmitButton" type="submit">Submit</button>
     </form>
   );
 };

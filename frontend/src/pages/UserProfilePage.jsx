@@ -9,7 +9,6 @@ const UserProfilePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const user = JSON.parse(localStorage.getItem("user"));
-  console.log(user.token)
 
   useEffect(() => {
     axios.get(`http://localhost:3000/api/auth/${user.userId}`, {
@@ -38,6 +37,9 @@ const UserProfilePage = () => {
     <div style={{ padding: 10 }}>
       <Navigation />
       <UserProfile profileData={profileData} />
+      <div>
+        <button>Delete Account</button>
+      </div>
     </div>
   );
 };

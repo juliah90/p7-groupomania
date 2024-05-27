@@ -23,7 +23,7 @@ function SignUpPage({ onLogin }) {
             navigate('/createProfile');
         } catch (error) {
             console.error("Signup error:", error);
-            if (error.response && error.response.status === 409) {
+            if (error.response && error.response.status === 400) {
                 setError('Email already exists.');
             } else {
                 setError('An error occurred. Please try again later.');

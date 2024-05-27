@@ -13,12 +13,12 @@ router.post('/:id/read', auth, postCtrl.readPost)
 
 // Messages array to store messages in-memory
 let messages = [];
-
+//TODO move handler code into controller
 // Get all messages
 router.get('/messages', auth, (req, res) => {
   res.json(messages);
 });
-
+//TODO move handler code into controller
 // Create a new message
 router.post('/messages', auth, (req, res) => {
   const message = req.body;

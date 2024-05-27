@@ -111,10 +111,10 @@ exports.delete = (req, res, next) => {
 
 exports.updateProfile = (req, res, next) => {
     const userId = req.auth.userId;
-    const { name, position, aboutMe } = req.body;
+    const { fullName, position, aboutMe } = req.body;
     const profilePicture = req.file ? `${req.protocol}://${req.get('host')}/multimedia/${req.file.filename}` : null;
 
-    User.update({ name, position, aboutMe, profilePicture }, { where: { id: userId } })
+    User.update({ fullName, position, aboutMe, profilePicture }, { where: { id: userId } })
         .then(() => res.status(200).json({ message: 'Profile updated successfully' }))
         .catch(error => res.status(500).json({ error }));
 };
