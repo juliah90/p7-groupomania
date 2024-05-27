@@ -7,24 +7,9 @@ const User = sq.define("User", {
         allowNull: false,
         unique: true,
     },
-    fullName: {
-        type: DataTypes.STRING,
-    },
     password: {
         type: DataTypes.STRING,
         allowNull: false,
-    },
-    profilePicture: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
-    position: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
-    aboutMe: {
-        type: DataTypes.TEXT,
-        allowNull: true,
     },
 });
 

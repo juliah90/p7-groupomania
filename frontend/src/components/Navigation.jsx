@@ -9,14 +9,14 @@ const Navigation = () => {
         navigate('/home');
     };
 
-    const profileNavClick = () => {
-        navigate('/profile');
+    const accountNavClick = () => {
+        navigate('/account');
     };
 
     return (
         <div className="navigation">
             <button onClick={homeNavClick} className="navLinks">Home</button>
-            <button onClick={profileNavClick} className="navLinks">Profile</button>
+            <button onClick={accountNavClick} className="navLinks">Account</button>
         </div>
     );
 };

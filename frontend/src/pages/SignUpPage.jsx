@@ -19,8 +19,7 @@ function SignUpPage({ onLogin }) {
             localStorage.setItem('user', JSON.stringify({ userId: response.data.userId, token: response.data.token }));
             // trigger the login state
             onLogin();
-            // redirect to profile creation page
-            navigate('/createProfile');
+            navigate('/home');
         } catch (error) {
             console.error("Signup error:", error);
             if (error.response && error.response.status === 400) {

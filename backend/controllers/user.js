@@ -109,17 +109,7 @@ exports.delete = (req, res, next) => {
         });
 };
 
-exports.updateProfile = (req, res, next) => {
-    const userId = req.auth.userId;
-    const { fullName, position, aboutMe } = req.body;
-    const profilePicture = req.file ? `${req.protocol}://${req.get('host')}/multimedia/${req.file.filename}` : null;
-
-    User.update({ fullName, position, aboutMe, profilePicture }, { where: { id: userId } })
-        .then(() => res.status(200).json({ message: 'Profile updated successfully' }))
-        .catch(error => res.status(500).json({ error }));
-};
-
-exports.getProfile = (req, res, next) => {
+exports.getAccount = (req, res, next) => {
     const userId = req.auth.userId;
     User.findByPk(userId)
         .then(user => {

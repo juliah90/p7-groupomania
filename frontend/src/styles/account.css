@@ -1,0 +1,44 @@
+.accountLayout {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.accountContainer {
+    padding: 10px;
+}
+
+.accountWrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.account {
+    background-color: #ffd7d7;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.accountInfo {
+    text-align: center;
+}
+
+.deleteButton {
+    padding: 5px;
+    margin-top: 20px;
+    border-radius: 10px;
+    font-weight: 900;
+}
+
+.deleteButton:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}

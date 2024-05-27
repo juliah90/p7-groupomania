@@ -4,10 +4,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignUpPage from './pages/SignUpPage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
-import UserProfilePage from './pages/UserProfilePage';
+import AccountPage from './pages/AccoutPage';
 import Header from './components/Header';
 import PrivateRoutes from './components/PrivateRoutes';
-import CreateProfilePage from './pages/CreateProfilePage';
 
 function App() {
 
@@ -37,8 +36,7 @@ function App() {
         <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
         <Route element={<PrivateRoutes isLoggedIn={isLoggedIn} />}>
           <Route path="/home" element={<HomePage />} />
-          <Route path="/profile" element={<UserProfilePage />} />
-          <Route path="/createProfile" element={<CreateProfilePage />} />
+          <Route path="/account" element={<AccountPage />} />
         </Route>
       </Routes>
     </Router>
