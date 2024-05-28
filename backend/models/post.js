@@ -4,7 +4,6 @@ const { sq } = require("../config/db"); //import the sequelize instance
 const { DataTypes } = require("sequelize"); //import DataTypes from sequelize
 
 const Post = sq.define("Post", {
-    //TODO update to include read status
     
     title: {
         type: DataTypes.STRING,
@@ -18,7 +17,11 @@ const Post = sq.define("Post", {
     multimediaUrl: {
         type: DataTypes.STRING,
         allowNull: true,
-    }
+    },
+    read: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+    },
 });
 
 User.hasMany(Post, { foreignKey: "userId" });

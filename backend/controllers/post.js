@@ -1,5 +1,8 @@
 const Post = require('../models/post');
 
+// Messages array to store messages in-memory
+let messages = [];
+
 /**
  * 
  * @param {*} allPosts - returns a database of all posts
@@ -65,9 +68,36 @@ exports.getOnePost = (req, res, next) => {
  * 
  * @param {*} mark post as read
  */
-exports.readPost = (req, res, next) => {
+exports.readPost = async (req, res, next) => {
     const postId = req.params.id;
-    Post.update({ read: true }, { where: { id: postId } })
-        .then(() => res.status(200).json({ message: 'Post marked as read' }))
-        .catch(error => res.status(500).json({ error: 'Failed to mark post as read' }));
+
+    try {
+        const result = await Post.update({ read: true }, { where: { id: postId } });
+
+        if (result[0] === 0) {
+            // No rows were updated, meaning the post ID might be incorrect
+            return res.status(404).json({ error: 'Post not found' });
+        }
+
+        res.status(200).json({ message: 'Post marked as read' });
+    } catch (error) {
+        console.error('Failed to mark post as read:', error);
+        res.status(500).json({ error: 'Failed to mark post as read' });
+    }
+};
+
+/**
+ * Get all messages
+ */
+exports.getAllMessages = (req, res) => {
+    res.json(messages);
+};
+
+/**
+ * Create a new message
+ */
+exports.createMessage = (req, res) => {
+    const message = req.body;
+    messages.push(message);
+    res.status(201).json(message);
 };
