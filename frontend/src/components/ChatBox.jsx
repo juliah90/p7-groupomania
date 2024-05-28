@@ -16,7 +16,6 @@ const ChatBox = () => {
     axios.get('http://localhost:3000/api/posts', { headers })
       .then(response => {
         setMessages(response.data);
-        console.log(response.data); // Ensure multimediaUrl is present in the data
       })
       .catch(error => console.error('Error fetching messages:', error));
   }, [user.token]);
@@ -48,6 +47,33 @@ const ChatBox = () => {
     document.getElementById('fileInput').click();
   };
 
+  const handleToggle = (index) => {
+    setMessages(prevMessages => {
+      const updatedMessages = [...prevMessages];
+
+      if (!updatedMessages[index].read) {
+        axios.post(`http://localhost:3000/api/posts/${updatedMessages[index].id}/read`, {}, {
+          headers: { 'Authorization': `Bearer ${user.token}` }
+        })
+        .then(() => {
+          updatedMessages[index].read = true;
+        })
+          .catch(error => console.error('Error marking message as read:', error));
+      }
+      updatedMessages[index].isExpanded = !updatedMessages[index].isExpanded;
+      return updatedMessages;
+    });
+  };
+
+  const updateReadStatus = (messageId) => {
+    setMessages(prevMessages => {
+      const updatedMessages = prevMessages.map(message =>
+        message.id === messageId ? { ...message, read: true } : message
+      );
+      return updatedMessages;
+    });
+  };
+
   return (
     <div className="container">
       <div className="messages">
@@ -55,8 +81,10 @@ const ChatBox = () => {
           <Message
             key={index}
             message={message}
-            isExpanded={false}
-            onToggle={() => {}}
+            user={user}
+            isExpanded={message.isExpanded}
+            onToggle={() => handleToggle(index)}
+            onReadStatusChange={updateReadStatus}
           />
         ))}
       </div>

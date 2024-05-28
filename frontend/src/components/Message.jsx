@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "../styles/message.css";
+import axios from 'axios';
 
-const Message = ({ message }) => {
+const Message = ({ message, user, onReadStatusChange}) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const previewContent = message?.message.length > 10 ? message.message.substring(0, 10) + '...' : message?.message;
@@ -9,7 +10,21 @@ const Message = ({ message }) => {
   const circleColor = message?.read ? "green" : "red";
 
   const handleToggle = () => {
+    if (!message.read) {
+      markAsRead();
+    }
     setIsExpanded(!isExpanded);
+  };
+
+  const markAsRead = async () => {
+    try {
+      await axios.post(`http://localhost:3000/api/posts/${message.id}/read`, {}, {
+        headers: { 'Authorization': `Bearer ${user.token}` }
+      });
+      onReadStatusChange(message.id);
+    } catch (error) {
+      console.error('Error marking message as read:', error);
+    }
   };
 
   return (

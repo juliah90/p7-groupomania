@@ -67,24 +67,7 @@ exports.getOnePost = (req, res, next) => {
  */
 exports.readPost = (req, res, next) => {
     const postId = req.params.id;
-
-    Post.findOne({ where: { id: postId } })
-        .then(post => {
-            if (!post) {
-                return res.status(404).json({ error: 'Post not found' });
-            }
-
-            post.read = true;
-
-            post.save()
-                .then(() => {
-                    res.status(200).json({ message: 'Post marked as read' });
-                })
-                .catch(error => {
-                    res.status(500).json({ error: 'Failed to mark post as read' });
-                });
-        })
-        .catch(error => {
-            res.status(500).json({ error: 'Failed to find post' });
-        });
+    Post.update({ read: true }, { where: { id: postId } })
+        .then(() => res.status(200).json({ message: 'Post marked as read' }))
+        .catch(error => res.status(500).json({ error: 'Failed to mark post as read' }));
 };
