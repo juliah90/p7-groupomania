@@ -22,7 +22,7 @@ function Header({ isLoggedIn, onLogout }) {
 
     return (
         <div className="containerHead">
-            <img src={logo} alt="Company Logo" className="logo" />
+            <img src={logo} alt="Groupomania Logo" className="logo" />
             <div className="headerLinks">
                 {isLoggedIn ? (
                     <button className="signOutButton" onClick={handleLogout}>Sign Out</button>

@@ -12,7 +12,8 @@
 .messages {
     min-height: 200px;
     margin-bottom: 10px;
-    overflow-y: auto;
+    overflow-y: scroll;
+    max-height: 500px;
 }
 
 .inputContainer {
@@ -29,6 +30,12 @@
     overflow: hidden;
 }
 
+.inputForm {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
 .paperclipIcon {
     cursor: pointer;
     color: black;
@@ -38,7 +45,7 @@
 .button {
     padding: 8px 16px;
     background-color: #fd2d01;
-    color: #fff;
+    color: black;
     border: none;
     border-radius: 4px;
     cursor: pointer;

@@ -31,7 +31,7 @@ function SignUpPage({ onLogin }) {
     };
 
     return (
-        <div style={{ padding: 20 }}>
+        <div className='signupForm'>
             <div>
                 <form id="signup" onSubmit={handleSubmit}>
                     <h1>New User Sign Up</h1>

@@ -1,7 +1,7 @@
 .containerHead {
     background-color: #fd2d01;
-    padding: 20px 10px 0px 0px;
-    width: 100%;
+    padding: 20px 20px 0px 20px;
+    width: 90vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -44,9 +44,10 @@
 
 
 @media (max-width: 768px) {
-    .header {
+    .containerHead {
         flex-direction: column;
-        padding: 0 5px;
+        padding: 0 0px;
+        width: auto;
     }
 
     .logo {

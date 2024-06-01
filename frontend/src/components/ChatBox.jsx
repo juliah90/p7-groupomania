@@ -89,7 +89,8 @@ const ChatBox = () => {
         ))}
       </div>
       <div className="inputContainer">
-        <form onSubmit={handleSubmit}>
+        <label id='inputForm label' for='inputForm'></label>
+        <form className='inputForm' onSubmit={handleSubmit}>
           <div className="inputWrapper">
             <input
               type="text"
@@ -98,7 +99,7 @@ const ChatBox = () => {
               value={messageInput}
               onChange={(e) => setMessageInput(e.target.value)}
             />
-            <FontAwesomeIcon icon={faPaperclip} className="paperclipIcon" onClick={handleIconClick} />
+            <FontAwesomeIcon icon={faPaperclip} className="paperclipIcon" alt="Attach File" onClick={handleIconClick} />
             <input
               type="file"
               id="fileInput"

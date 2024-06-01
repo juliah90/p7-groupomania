@@ -15,8 +15,8 @@ const Navigation = () => {
 
     return (
         <div className="navigation">
-            <button onClick={homeNavClick} className="navLinks">Home</button>
-            <button onClick={accountNavClick} className="navLinks">Account</button>
+            <button onClick={homeNavClick} className="navLinks" alt="Home">Home</button>
+            <button onClick={accountNavClick} className="navLinks" alt="Account">Account</button>
         </div>
     );
 };
