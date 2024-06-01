@@ -10,7 +10,7 @@
 .logo {
     padding: 0 20px;
     width: 190px;
-    height: auto;
+    /* height: auto; */
     text-align: left;
 }
 

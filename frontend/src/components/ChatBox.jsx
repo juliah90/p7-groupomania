@@ -89,12 +89,13 @@ const ChatBox = () => {
         ))}
       </div>
       <div className="inputContainer">
-        <form className='inputForm' onSubmit={handleSubmit} aria-labelledby="messageForm">
+        <form className='inputForm' id='inputForm' onSubmit={handleSubmit} aria-labelledby="inputForm">
           <div className="inputWrapper">
           <label htmlFor="messageInput" className="visually-hidden">Type your message here</label>
             <input
               type="text"
               placeholder="Type your message here..."
+              id="messageInput"
               className="input"
               value={messageInput}
               onChange={(e) => setMessageInput(e.target.value)}

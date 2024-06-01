@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import "../styles/navigation.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {  faHome, faUser } from '@fortawesome/free-solid-svg-icons';
 
 const Navigation = () => {
     const navigate = useNavigate();
@@ -15,8 +17,10 @@ const Navigation = () => {
 
     return (
         <div className="navigation">
-            <button onClick={homeNavClick} className="navLinks" alt="Home">Home</button>
-            <button onClick={accountNavClick} className="navLinks" alt="Account">Account</button>
+            <FontAwesomeIcon icon={faHome} className="homeIcon" alt="Navigate to Home" onClick={homeNavClick} />
+            {/* <button onClick={homeNavClick} className="navLinks" alt="Home">Home</button> */}
+            <FontAwesomeIcon icon={faUser} className="accountIcon" alt="Navigate to account" onClick={accountNavClick} />
+            {/* <button onClick={accountNavClick} className="navLinks" alt="Account">Account</button> */}
         </div>
     );
 };
