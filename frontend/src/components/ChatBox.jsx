@@ -89,9 +89,9 @@ const ChatBox = () => {
         ))}
       </div>
       <div className="inputContainer">
-        <label id='inputForm label' for='inputForm'></label>
-        <form className='inputForm' onSubmit={handleSubmit}>
+        <form className='inputForm' onSubmit={handleSubmit} aria-labelledby="messageForm">
           <div className="inputWrapper">
+          <label htmlFor="messageInput" className="visually-hidden">Type your message here</label>
             <input
               type="text"
               placeholder="Type your message here..."
@@ -105,6 +105,7 @@ const ChatBox = () => {
               id="fileInput"
               style={{ display: 'none' }}
               onChange={handleFileChange}
+              aria-label="Attach a file"
             />
           </div>
           <button type="submit" className="button">Send</button>

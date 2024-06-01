@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../styles/message.css";
 import axios from 'axios';
 
-const Message = ({ message, user, onReadStatusChange}) => {
+const Message = ({ message, user, onReadStatusChange }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const previewContent = message?.message.length > 10 ? message.message.substring(0, 10) + '...' : message?.message;
@@ -28,7 +28,9 @@ const Message = ({ message, user, onReadStatusChange}) => {
   };
 
   return (
-    <div className="messageContainer" onClick={handleToggle}>
+    <div className="messageContainer" onClick={handleToggle} role="button"
+      aria-expanded={isExpanded}
+      aria-label={message.read ? "Message read" : "Message unread"}>
       <div className="userInfo">
         <strong>{message?.name}</strong>
       </div>
@@ -48,7 +50,9 @@ const Message = ({ message, user, onReadStatusChange}) => {
         )}
       </div>
       <div className="meta">
-        <div className="circle" style={{ backgroundColor: circleColor }}></div>
+        <div className="circle" style={{ backgroundColor: circleColor }} role="status"
+          aria-live="polite"
+          aria-label={message.read ? "Read" : "Unread"}></div>
         <span>{message?.timestamp}</span>
       </div>
     </div>
