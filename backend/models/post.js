@@ -26,8 +26,5 @@ const Post = sq.define("Post", {
 
 User.hasMany(Post, { foreignKey: "userId" });
 
-Post.sync({ alter: true }).then(() => {
-    console.log("Post Model synced");
-}); //creates the database table for the post model if it doesn't exist and does nothing if it exists
 
 module.exports = Post;

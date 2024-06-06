@@ -23,7 +23,8 @@ const ChatBox = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('post', JSON.stringify({ title: 'New Post', message: messageInput }));
+    formData.append('post', JSON.stringify({ title: 'New Post', message: messageInput, username: user.username }));
+    console.log(file)
     if (file) {
       formData.append('file', file);
     }
@@ -40,6 +41,7 @@ const ChatBox = () => {
   };
 
   const handleFileChange = (e) => {
+    console.log(e.target.files[0])
     setFile(e.target.files[0]);
   };
 
@@ -100,7 +102,7 @@ const ChatBox = () => {
               value={messageInput}
               onChange={(e) => setMessageInput(e.target.value)}
             />
-            <FontAwesomeIcon icon={faPaperclip} className="paperclipIcon" alt="Attach File" onClick={handleIconClick} />
+            <FontAwesomeIcon icon={faPaperclip} className="paperclipIcon" aria-labelledby="fileInput" onClick={handleIconClick} />
             <input
               type="file"
               id="fileInput"

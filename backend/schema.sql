@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS "Users" (
+    "id"   SERIAL ,
+    "email" VARCHAR(255) NOT NULL UNIQUE,
+    "password" VARCHAR(255) NOT NULL,
+    "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL,
+    "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL,
+     PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "Posts" (
+    "id"   SERIAL ,
+    "title" VARCHAR(255),
+    "message" VARCHAR(255) NOT NULL,
+    "multimediaUrl" VARCHAR(255),
+    "read" BOOLEAN DEFAULT false,
+    "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL,
+    "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL,
+    "userId" INTEGER REFERENCES "Users" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
+    PRIMARY KEY ("id")
+);

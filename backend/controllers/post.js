@@ -8,7 +8,10 @@ let messages = [];
  * @param {*} allPosts - returns a database of all posts
  */
 exports.getAllPosts = (req, res, next) => {
-    Post.findAll()
+    Post.findAll({
+        order: [
+            ['createdAt', 'DESC']]
+    })
         .then(posts => {
             res.status(200).json(posts);
         })
