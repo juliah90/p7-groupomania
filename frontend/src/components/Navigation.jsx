@@ -18,7 +18,6 @@ const Navigation = () => {
     return (
         <div className="navigation">
             <FontAwesomeIcon icon={faHome} className="homeIcon" alt="Navigate to Home" onClick={homeNavClick} />
-            {/* fix aria labels for icons - a11y */}
             <FontAwesomeIcon icon={faUser} className="accountIcon" alt="Navigate to account" onClick={accountNavClick} />
         </div>
     );
