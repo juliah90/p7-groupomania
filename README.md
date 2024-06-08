@@ -1,11 +1,19 @@
-clone github repository:
-git clone https://github.com/juliah90/p7-groupomania.git
+Clone the GitHub repository to your local machine:
+    git clone https://github.com/juliah90/p7-groupomania.git
 
-navigate to the project:
-cd p7_Julia_Hoffman
+Change into the project directory:
+    cd p7-groupomania
 
-navigate to the frontend and start it using:
-npm run start
+Navigate to the frontend directory and start the frontend server:
+    cd frontend
+    npm install
+    npm start
 
-navigate to the backend and start it using:
-nodemon server
+Navigate to the backend directory and start the backend server using Nodemon:
+    cd backend
+    npm install
+    npx nodemon server
+
+The project uses a postgres SQL database. You will need to create the database using the schema provided in the schema.sql file located in the backend directory.
+
+Refer to the .env-sample file in the backend directory for the required credentials and environment variables. Copy this file to .env and update it with your own credentials. 

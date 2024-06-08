@@ -10,6 +10,7 @@ let messages = [];
 exports.getAllPosts = (req, res, next) => {
     Post.findAll({
         order: [
+            ['read', 'ASC'],
             ['createdAt', 'DESC']]
     })
         .then(posts => {
